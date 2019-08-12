@@ -107,14 +107,14 @@ void StartFire()
 {
 #define w SCREEN_WIDTH
 #define h SCREEN_HEIGHT
-    for (u32 i = 0; i < w; i++)
+    for(u32 i = 0; i < w; i++)
     {
 	//u32 ri = (u32)floor(((r64)rand() / (r64)RAND_MAX) * 999) & (NUM_PALETTE - 1);
 	global_fire_buffer[(h-1)*w + i] = NUM_PALETTE-1;
     }
-    for (u32 i = 0; i < w; i++)
+    for(u32 i = 0; i < w; i++)
     {
-	for (u32 j = 1; j < h; j++)
+	for(u32 j = 1; j < h; j++)
 	{
 	    SpreadFire(j*w + i);
 	}
@@ -126,7 +126,7 @@ void StartFire()
 
 void FillGlobalFirePal()
 {
-    for (u32 i = 0; i < NUM_PALETTE; i++)
+    for(u32 i = 0; i < NUM_PALETTE; i++)
     {
 	u32 red = (global_rgbs[i * 3 + 0] << 16);
 	u32 green = (global_rgbs[i * 3 + 1] << 8);
@@ -136,7 +136,7 @@ void FillGlobalFirePal()
 	global_palette[i] = total;
     }
 
-    for (u32 i = 0; i < SCREEN_HEIGHT * SCREEN_WIDTH; i++)
+    for(u32 i = 0; i < SCREEN_HEIGHT * SCREEN_WIDTH; i++)
     {
 	global_fire_buffer[i] = 0;
     }
@@ -254,9 +254,6 @@ int Win_InitWindow(void *wndproc, void *hinstance)
 {
     WNDCLASS wc = {0};
 
-    //RECT rect;
-    //int	x, y, w, h;
-
     int ex_style_bits = WS_EX_TOPMOST;
 
     HDC hdc = GetDC(GetDesktopWindow());
@@ -345,9 +342,9 @@ void R_Render()
 
     StartFire();
     u32 *base = (u32 *)global_screen_handle.buffer;
-    for (u32 i = 0; i < h; i++)
+    for(u32 i = 0; i < h; i++)
     {
-	for (u32 j = 0; j < w; j++)
+	for(u32 j = 0; j < w; j++)
 	{
 	    u32 pal = global_fire_buffer[i*w + j];
 	    u32 pal_pixel = global_palette[pal];
@@ -386,7 +383,7 @@ void Com_RunFrame()
 
     int prev_time = Sys_GetMilliseconds();
     int num_frames_to_run = 0;
-    for (;;) 
+    for(;;) 
     {
 	const int current_frame_time = Sys_GetMilliseconds();
 	if (!global_last_frame_time)
@@ -400,7 +397,7 @@ void Com_RunFrame()
 
 	global_time_residual += delta_milli_seconds;
 
-	for (;;) 
+	for(;;) 
 	{
 	    // how much to wait before running the next frame
 	    if (global_time_residual < MSEC_PER_FRAME) 
@@ -434,7 +431,7 @@ int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE prev_instance, LPSTR cmd_line,
 
     Sys_Init();
     FillGlobalFirePal();
-    for (;;)
+    for(;;)
     {
 	if (global_quit)
 	{
